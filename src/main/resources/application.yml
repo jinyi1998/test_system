@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    username: root
+    password: amos
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.98.45.151:3306/books?characterEncoding=utf8
