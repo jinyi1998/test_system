@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getUserList() {
         return userRepos.findAll();
     }
+
+    @Override
+    public JsonResult userLogin(String username,String password){
+        return JsonResult.success();
+    }
 }

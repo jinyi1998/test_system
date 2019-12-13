@@ -1,5 +1,7 @@
 package com.test.testsystem.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.test.testsystem.dao.KnowledgeRepos;
 import com.test.testsystem.model.Knowledge;
 import com.test.testsystem.service.KnowledgeService;
@@ -35,5 +37,14 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     public List<Knowledge> getKnowledgeList() {
         return knowledgeRepos.findAll();
 
+    }
+
+    @Override
+    public JsonResult getPageKnowledgeList(Integer page, Integer pageSize) {
+        //写完 会默认帮我们分页
+        PageHelper.startPage(page,pageSize);
+        List<Knowledge> knowledges = knowledgeRepos.findAll();
+        PageInfo pageInfo = new PageInfo(knowledges);
+        return JsonResult.success(pageInfo);
     }
 }

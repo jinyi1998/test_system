@@ -16,6 +16,10 @@ public class JsonResult {
         this.msg = msg;
         this.data = data;
     }
+    public static JsonResult success(){
+        return new JsonResult("1","success",null);
+    }
+
 
     public static JsonResult success(Object data){
         return new JsonResult("1","success",data);

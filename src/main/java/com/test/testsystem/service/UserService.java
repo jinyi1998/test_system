@@ -16,5 +16,7 @@ public interface UserService {
 
    List<User> getUserList();
 
+   JsonResult userLogin(String username,String password);
+
 
 }

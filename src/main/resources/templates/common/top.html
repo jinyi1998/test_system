@@ -2,7 +2,12 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="topMenu">
-
+<script th:src="@{js/page.js}"></script>
+    <script>
+        /*<![CDATA[*/
+        ctxPath = /*[[@{/}]]*/ '';
+        /*]]>*/
+    </script>
 <nav class="navbar navbar-default navbar-static-top m-b-0">
 
   <div class="navbar-header">

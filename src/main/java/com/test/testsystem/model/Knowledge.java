@@ -13,11 +13,18 @@ public class Knowledge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String knowledge_name;
+
+    private String knowledgeName;
+
     private Integer status;
-    private Integer create_by;
-    private Date create_time;
-    private Integer update_by;
-    private Date update_time;
-    private Integer is_delete;
+
+    private Integer createBy;
+
+    private Date createTime;
+
+    private Integer updateBy;
+
+    private Date updateTime;
+
+    private Integer isDelete;
 }

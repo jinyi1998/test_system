@@ -16,5 +16,7 @@ public interface KnowledgeService {
 
    List<Knowledge> getKnowledgeList();
 
+   JsonResult getPageKnowledgeList(Integer page,Integer pageSize);
+
 
 }

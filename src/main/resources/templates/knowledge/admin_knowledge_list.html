@@ -54,14 +54,12 @@
                                     <th>ID</th>
                                     <th>知识点名称</th>
                                     <th>状态</th>
-                                    <th>创建员</th>
-                                    <th>创建时间</th>
-                                    <th>更新员</th>
-                                    <th>更新时间</th>
+
+                                    <th>操作</th>
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="pageContent">
                                 <tr>
                                     <td>1</td>
                                     <td class="txt-oflo">Elite admin</td>
@@ -74,20 +72,17 @@
                                         &nbsp
                                         <a href="#">删除</a> </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td>active</td>
-                                    <td>2</td>
-                                    <td class="txt-oflo">April 18, 2017</td>
-                                    <td>2</td>
-                                    <td class="txt-oflo">April 18, 2017</td>
-                                    <td><a href="#">修改</a>
-                                        &nbsp
-                                        <a href="#">删除</a> </td>
-                                </tr>
                                 </tbody>
                             </table>
+                            <ul class="pagination">
+                                <li><a href="#">&laquo;</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">&raquo;</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -112,6 +107,66 @@
 <script th:src="@{js/waves.js}"></script>
 
 <script th:src="@{js/custom.min.js}"></script>
+<script>
+
+    $(function(){
+        page(1,10);
+    });
+    $("#deleteBtn").on("click","body",function(event){
+                         var target = $(event.target);
+                         target.css("background-color","red");
+    })
+    function deleteKnowledge(id){
+        $.ajax({
+            url:ctxPath+"deleteKnowledge",
+            data:{
+                id:id
+            },
+            type:'POST',
+            success:function (data) {
+                if (data.code == '1'){
+                    page(1,10);
+                }else {
+                    alert("删除失败");
+                }
+            }
+        })
+
+    }
+
+    function page(currentPage,pageSize) {
+        $.ajax({
+            url:ctxPath+"getKnowledgeList",
+            data:{
+                page:currentPage,
+                pageSize:pageSize
+            },
+            type:'POST',
+            success:function (data) {
+                if (data.code == '1'){
+                    console.log(data.data);
+                    //获取知识结构列表成功
+                    var tableContentStr = "";
+                    $("#pageContent").empty();
+                    $(data.data.list).each(function (i,item) {
+                        tableContentStr = tableContentStr + "<tr>";
+                        tableContentStr = tableContentStr + "<td>"+item.id+"</td>";
+                        tableContentStr = tableContentStr + "<td>"+item.knowledgeName+"</td>";
+                        tableContentStr = tableContentStr + "<td>"+item.status+"</td>";
+                        tableContentStr = tableContentStr + "<td><button type='button' class='btn btn-warning' id='updateBtn' data-id='"+item.id+"'>修改</button> <button data-id='"+item.id+"' type='button' class='btn btn-danger' id='deleteBtn'>删除</button></td>";
+                        tableContentStr = tableContentStr + "</tr>";
+
+                    })
+                    $("#pageContent").append(tableContentStr);
+                    commonPage(data.data,currentPage);
+
+                }
+            }
+        })
+    }
+</script>
 </body>
+
+
 
 </html>
