@@ -12,7 +12,7 @@ public class AdminController {
 
     @RequestMapping("/adminLogin")
     public String adminLogin(){
-        return "admin/admin_login";
+        return "question/admin_login";
     }
 
     @RequestMapping("/adminDetail")
@@ -21,7 +21,10 @@ public class AdminController {
     }
 
     @RequestMapping("/adminList")
-    public String adminList(){
-        return "admin/admin_list";
+    public String adminList(){ return "admin/admin_list"; }
+
+    @RequestMapping("/systemList")
+    public String systemList(){
+        return "management/admin_system_list";
     }
 }

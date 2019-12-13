@@ -12,11 +12,11 @@ public class QuestionController {
 
     @RequestMapping("/questionDetail")
     public String questionDetail(){
-        return "question/question_detail";
+        return "question/admin_question_detail";
     }
 
     @RequestMapping("/questionList")
     public String questionList(){
-        return "question/question_list";
+        return "question/admin_question_list";
     }
 }
