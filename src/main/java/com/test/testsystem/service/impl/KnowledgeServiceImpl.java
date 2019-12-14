@@ -9,6 +9,7 @@ import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,8 +24,12 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
     @Override
     public JsonResult saveKnowledge(Knowledge knowledge) {
-
-        return JsonResult.success(knowledgeRepos.save(knowledge));
+        if (null == knowledge.getId() || 0 == knowledge.getId()){
+            knowledge.setUpdateTime(new Date());
+            knowledge.setCreateTime(new Date());
+            knowledge.setStatus(1);
+        }
+        return JsonResult.success(knowledgeRepos.saveAndFlush(knowledge));
     }
 
     @Override

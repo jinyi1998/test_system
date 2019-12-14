@@ -5,8 +5,10 @@ import com.test.testsystem.service.KnowledgeService;
 import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -15,7 +17,12 @@ public class KnowledgeController {
     private KnowledgeService knowledgeService;
 
     @RequestMapping("/knowledgeDetail")
-    public String knowledgeDetail(){
+    public String knowledgeDetail(@RequestParam("id") Integer id, Model model){
+        if (null == id || 0 ==id){
+            model.addAttribute("knowledge",new Knowledge());
+        }else {
+            model.addAttribute("knowledge",knowledgeService.getKnowledgeById(id));
+        }
         return "knowledge/admin_knowledge_detail";
     }
 
