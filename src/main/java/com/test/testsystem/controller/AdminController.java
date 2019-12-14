@@ -20,17 +20,9 @@ public class AdminController {
         return "admin_login";
     }
 
-    @RequestMapping("/adminDetail")
-    public String adminDetail(){
-        return "admin/admin_detail";
-    }
-
-    @RequestMapping("/adminList")
-    public String adminList(){ return "admin/admin_list"; }
-
     @RequestMapping("/systemList")
     public String systemList(){
-        return "management/admin_system_list";
+        return "admin/admin_system_list";
     }
 
     @RequestMapping("/doAdminLogin")

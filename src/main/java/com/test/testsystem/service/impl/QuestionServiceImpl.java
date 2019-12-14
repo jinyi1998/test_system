@@ -1,5 +1,7 @@
 package com.test.testsystem.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.test.testsystem.dao.QuestionRepos;
 import com.test.testsystem.model.Question;
 import com.test.testsystem.service.QuestionService;
@@ -7,6 +9,7 @@ import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,8 +24,12 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public JsonResult saveQuestion(Question question) {
-
-        return JsonResult.success(questionRepos.save(question));
+        if(null==question.getId()||0==question.getId()){
+            question.setUpdateTime(new Date());
+            question.setCreateTime(new Date());
+            question.setStatus(1);
+        }
+        return JsonResult.success(questionRepos.saveAndFlush(question));
     }
 
     @Override
@@ -34,6 +41,15 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<Question> getQuestionList() {
         return questionRepos.findAll();
+
+    }
+
+    @Override
+    public JsonResult getPageQuestionList(Integer page,Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        List<Question>questions=questionRepos.findAll();
+        PageInfo pageInfo=new PageInfo(questions);
+        return JsonResult.success(pageInfo);
 
     }
 }

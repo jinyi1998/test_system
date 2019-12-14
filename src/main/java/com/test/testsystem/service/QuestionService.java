@@ -16,5 +16,6 @@ public interface QuestionService {
 
    List<Question> getQuestionList();
 
+   JsonResult getPageQuestionList(Integer page,Integer pageSize);
 
 }

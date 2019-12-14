@@ -1,9 +1,15 @@
 package com.test.testsystem.controller;
 
+import com.test.testsystem.model.User;
 import com.test.testsystem.service.UserService;
+import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
@@ -12,17 +18,57 @@ public class UserController {
 
     @RequestMapping("/userLogin")
     public String userLogin(){
-        return "user/user_login";
+        return "user_login";
     }
 
     @RequestMapping("/userRegister")
     public String userRegister(){
-        return "user/user_register";
+        return "user_register";
     }
 
     @RequestMapping("/userQuestion")
     public String userQuestion(){
         return "user/user_question";
     }
+
+    @RequestMapping("/userDetail")
+    public String userDetail(@RequestParam("id") Integer id, Model model){
+        if (null == id || 0 ==id){
+            model.addAttribute("user",new User());
+        }else {
+            model.addAttribute("user",userService.getUserById(id));
+        }
+        return "user/admin_user_detail";
+    }
+
+    @RequestMapping("/userList")
+    public String userList(){
+        return "user/admin_user_list";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getUserList",method = RequestMethod.POST)
+    public JsonResult getUserList(Integer page, Integer pageSize){
+        return userService.getPageUserList(page, pageSize);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "saveUser",method = RequestMethod.POST)
+    public JsonResult saveUser(User user){
+        return userService.saveUser(user);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "deleteUser",method = RequestMethod.POST)
+    public JsonResult deleteUser(Integer id){
+        return userService.deleteUser(id);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getUser",method = RequestMethod.POST)
+    public JsonResult getUser(Integer id){
+        return JsonResult.success(userService.getUserById(id));
+    }
+
 
 }

@@ -16,10 +16,10 @@ public class User {
     private String username;
     private String password;
     private String gender;
-    private Integer create_by;
-    private Date create_time;
-    private Integer update_by;
-    private Date update_time;
-    private Integer is_delete;
+    private Integer createBy;
+    private Date createTime;
+    private Integer updateBy;
+    private Date updateTime;
+    private Integer isDelete;
 
 }

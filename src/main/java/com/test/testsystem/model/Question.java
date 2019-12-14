@@ -13,15 +13,15 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String question_name;
-    private String question_options;
-    private String question_correct_answer;
-    private Integer question_level;
+    private String questionName;
+    private String questionOptions;
+    private String questionCorrectAnswer;
+    private Integer questionLevel;
     private Integer status;
-    private Integer create_by;
-    private Date create_time;
-    private Integer update_by;
-    private Date update_time;
-    private Integer is_delete;
-    private Integer knowledge_id;
+    private Integer createBy;
+    private Date createTime;
+    private Integer updateBy;
+    private Date updateTime;
+    private Integer isDelete;
+    private Integer knowledgeId;
 }

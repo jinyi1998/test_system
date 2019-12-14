@@ -46,7 +46,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
     @Override
     public JsonResult getPageKnowledgeList(Integer page, Integer pageSize) {
-        //写完 会默认帮我们分页
+        //默认分页
         PageHelper.startPage(page,pageSize);
         List<Knowledge> knowledges = knowledgeRepos.findAll();
         PageInfo pageInfo = new PageInfo(knowledges);

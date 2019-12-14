@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<head th:include="common/common_css::commonCss">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon.png}">
     <title>知识结构详情</title>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/css/sidebar-nav.min.css}" rel="stylesheet">
-    <link th:href="@{/css/animate.css}" rel="stylesheet">
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <link th:href="@{/css/default.css}" id="theme" rel="stylesheet">
 
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -69,18 +64,8 @@
 
 </div>
 
+<div th:include="common/common_js::commonJs"></div>
 
-<script th:src="@{/js/jquery.min.js}"></script>
-
-<script th:src="@{/js/bootstrap.min.js}"></script>
-
-<script th:src="@{js/sidebar-nav.min.js}"></script>
-
-<script th:src="@{js/jquery.slimscroll.js}"></script>
-
-<script th:src="@{js/waves.js}"></script>
-
-<script th:src="@{js/custom.min.js}"></script>
 <script>
 
     $("#submitBtn").click(function(){

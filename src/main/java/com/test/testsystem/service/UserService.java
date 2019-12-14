@@ -18,5 +18,8 @@ public interface UserService {
 
    JsonResult userLogin(String username,String password);
 
+   JsonResult getPageUserList(Integer page,Integer pageSize);
+
+
 
 }
