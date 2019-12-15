@@ -15,10 +15,7 @@
 
 <div id="wrapper">
 
-
-    <div class="row">
-        <div class="col-md-12 col-lg-12 col-sm-12">
-            <div class="white-box">
+            <div>
                 <h3 class="box-title">欢迎登陆 测试系统管理后台</h3>
                 <form class="form-horizontal" role="form" id="loginForm">
                     <div class="form-group">
@@ -41,8 +38,6 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
 
 </div>
 
@@ -61,7 +56,7 @@
             type:'POST',
             success:function(data){
                 if (data.code == 1){
-                    window.location.href = ctxPath+"knowledgeList";//登录成功  跳转到管理员主页面
+                    window.location.href = ctxPath+"systemList";//登录成功  跳转到管理员主页面
                 } else{
                     alert("登录失败，请检查账号密码");
                 }
