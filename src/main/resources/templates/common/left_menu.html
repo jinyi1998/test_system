@@ -10,24 +10,24 @@
             </div>
             <ul class="nav" id="side-menu">
                 <li style="padding: 70px 0 0;">
-                    <a href= class="waves-effect"><i class="fa fa-clock-o fa-fw"
+                    <a th:href="@{/systemList}" class="waves-effect"><i class="fa fa-clock-o fa-fw"
                                                                             aria-hidden="true"></i>系统设置</a>
                 </li>
                 <li>
-                    <a href="UserManagement.html" class="waves-effect"><i class="fa fa-user fa-fw"
+                    <a th:href="@{/userList}" class="waves-effect"><i class="fa fa-user fa-fw"
                                                                           aria-hidden="true"></i>用户管理</a>
                 </li>
                 <li>
-                    <a href="KnowledgeManagement.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                    <a th:href="@{/knowledgeList}" class="waves-effect"><i class="fa fa-table fa-fw"
                                                                                aria-hidden="true"></i>知识结构管理</a>
                 </li>
 
                 <li>
-                    <a href="QuestionManagement.html" class="waves-effect"><i class="fa fa-columns fa-fw"
+                    <a th:href="@{/questionList}" class="waves-effect"><i class="fa fa-columns fa-fw"
                                                                               aria-hidden="true"></i>题库管理</a>
                 </li>
                 <li>
-                    <a href="404.html" class="waves-effect"><i class="fa fa-info-circle fa-fw"
+                    <a th:href="@{/errorPage}" class="waves-effect"><i class="fa fa-info-circle fa-fw"
                                                                aria-hidden="true"></i>Error 404</a>
                 </li>
             </ul>
