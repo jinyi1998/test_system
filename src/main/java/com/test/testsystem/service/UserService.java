@@ -4,6 +4,7 @@ package com.test.testsystem.service;
 import com.test.testsystem.model.User;
 import com.test.testsystem.utils.JsonResult;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface UserService {
@@ -19,6 +20,8 @@ public interface UserService {
    JsonResult userLogin(String username,String password);
 
    JsonResult getPageUserList(Integer page,Integer pageSize);
+
+   JsonResult doUserLogin(String username, String password, HttpSession session);
 
 
 

@@ -3,12 +3,16 @@ package com.test.testsystem.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.test.testsystem.dao.QuestionRepos;
+import com.test.testsystem.dto.UserQuestionDto;
 import com.test.testsystem.model.Question;
+import com.test.testsystem.model.User;
 import com.test.testsystem.service.QuestionService;
+import com.test.testsystem.utils.EntityUtils;
 import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +54,14 @@ public class QuestionServiceImpl implements QuestionService {
         List<Question>questions=questionRepos.findAll();
         PageInfo pageInfo=new PageInfo(questions);
         return JsonResult.success(pageInfo);
+
+    }
+
+
+    @Override
+    public List<UserQuestionDto> getUserQuestionKnowledgeList(User user) {
+
+        return EntityUtils.castEntity(questionRepos.getUserQuestionKnowledgeList(user.getId()),UserQuestionDto.class,new UserQuestionDto());
 
     }
 }

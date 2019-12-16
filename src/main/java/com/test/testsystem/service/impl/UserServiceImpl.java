@@ -10,6 +10,7 @@ import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -56,5 +57,16 @@ public class UserServiceImpl implements UserService {
         List<User>users = userRepos.findAll();
         PageInfo pageInfo = new PageInfo(users);
         return JsonResult.success(pageInfo);
+    }
+
+    @Override
+    public JsonResult doUserLogin(String username, String password, HttpSession session) {
+        User user = userRepos.findTopByUsernameAndPassword(username, password);
+        if (null != user){
+            session.setAttribute("user",user);
+            return JsonResult.success();
+        }else {
+            return JsonResult.error("登录失败");
+        }
     }
 }

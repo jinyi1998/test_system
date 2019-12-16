@@ -1,6 +1,7 @@
 package com.test.testsystem.controller;
 
 import com.test.testsystem.model.Question;
+import com.test.testsystem.model.User;
 import com.test.testsystem.service.QuestionService;
 import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class QuestionController {
@@ -54,4 +57,23 @@ public class QuestionController {
     public JsonResult getQuestion(Integer id){
         return JsonResult.success(questionService.getQuestionById(id));
     }
+
+    /**
+     * 获取用户做题记录
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "getUserQuestionKnowledgeList",method = RequestMethod.POST)
+    public JsonResult getUserQuestionAnswerList(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        return JsonResult.success(questionService.getUserQuestionKnowledgeList(user));
+    }
+
+
+    @RequestMapping("/userKnowledge")
+    public String userKnowledge(){
+        return "knowledge/user_knowledge_list";
+    }
+
 }

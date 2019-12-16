@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="common/common_css::commonCss">
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon.png}">
+    <title>知识结构管理</title>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+
+<body class="fix-header">
+
+<div class="preloader">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+</div>
+
+<div id="wrapper">
+
+
+    <div th:include="common/top::topMenu"></div>
+
+    <div th:include="common/left_menu::leftMenu"></div>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">知识结构</h4> </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">知识结构列表</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+
+                                    <th>知识点名称</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="pageContent">
+                                <tr>
+                                    <td>1</td>
+                                    <td class="txt-oflo">Elite admin</td>
+                                    <td>active</td>
+                                    <td>2</td>
+                                    <td class="txt-oflo">April 18, 2017</td>
+                                    <td>2</td>
+                                    <td class="txt-oflo">April 18, 2017</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning updateBtn" data-id="3">修改</button>
+                                        <button data-id="3" type="button" class="btn btn-danger deleteBtn">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="footer text-center"> 2019 &copy;Online Test System</footer>
+    </div>
+
+</div>
+
+<div th:include="common/common_js::commonJs"></div>
+
+<script>
+
+    $(function(){
+        page(1,10);
+    });
+
+
+    function page(currentPage,pageSize) {
+        $.ajax({
+            url:ctxPath+"getUserQuestionKnowledgeList",
+            data:{
+            },
+            type:'POST',
+            success:function (data) {
+                if (data.code == '1'){
+                    console.log(data.data);
+                    //获取知识结构列表成功
+                    var tableContentStr = "";
+                    $("#pageContent").empty();
+                    $(data.data).each(function (i,item) {
+                        console.log(item)
+                        tableContentStr = tableContentStr + "<tr>";
+
+                        tableContentStr = tableContentStr + "<td>"+item.knowledgeName+"</td>";
+                        tableContentStr = tableContentStr + "</tr>";
+
+                    })
+                    $("#pageContent").append(tableContentStr);
+
+
+                }
+            }
+        })
+    }
+</script>
+
+</body>
+
+</html>

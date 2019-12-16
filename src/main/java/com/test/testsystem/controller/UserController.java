@@ -11,15 +11,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/")
+    public String index(){
+        return "index";
+    }
+
     @RequestMapping("/userLogin")
     public String userLogin(){
         return "user_login";
     }
+
+
+    @RequestMapping("/doLogin")
+    @ResponseBody
+    public JsonResult doLogin(String username, String password, HttpSession session){
+        return userService.doUserLogin(username,password,session);
+    }
+
 
     @RequestMapping("/userRegister")
     public String userRegister(){
