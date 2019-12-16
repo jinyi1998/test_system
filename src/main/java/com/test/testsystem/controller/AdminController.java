@@ -16,7 +16,7 @@ public class AdminController {
 
     @RequestMapping("/adminLogin")
     public String adminLogin(){
-        return "sign";
+        return "admin_login";
     }
 
     @RequestMapping("/systemList")
