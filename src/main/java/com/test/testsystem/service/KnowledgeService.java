@@ -1,9 +1,7 @@
 package com.test.testsystem.service;
 
-
 import com.test.testsystem.model.Knowledge;
 import com.test.testsystem.utils.JsonResult;
-
 import java.util.List;
 
 public interface KnowledgeService {

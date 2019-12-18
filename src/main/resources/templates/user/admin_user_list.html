@@ -86,7 +86,6 @@
 </div>
 
 <div th:include="common/common_js::commonJs"></div>
-
 <script>
 
     $(function(){
@@ -139,7 +138,6 @@
                         tableContentStr = tableContentStr + "<td>"+item.id+"</td>";
                         tableContentStr = tableContentStr + "<td>"+item.username+"</td>";
                         tableContentStr = tableContentStr + "<td>"+item.password+"</td>";
-                        tableContentStr = tableContentStr + "<td>"+item.gender+"</td>";
                         tableContentStr = tableContentStr + "<td><button type='button' class='btn btn-warning updateBtn' data-id='"+item.id+"'>修改</button> <button data-id='"+item.id+"' type='button' class='btn btn-danger deleteBtn' >删除</button></td>";
                         tableContentStr = tableContentStr + "</tr>";
 

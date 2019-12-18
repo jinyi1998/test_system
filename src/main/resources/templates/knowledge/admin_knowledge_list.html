@@ -54,10 +54,6 @@
                                     <td>1</td>
                                     <td class="txt-oflo">Elite admin</td>
                                     <td>active</td>
-                                    <td>2</td>
-                                    <td class="txt-oflo">April 18, 2017</td>
-                                    <td>2</td>
-                                    <td class="txt-oflo">April 18, 2017</td>
                                     <td>
                                         <button type="button" class="btn btn-warning updateBtn" data-id="3">修改</button>
                                         <button data-id="3" type="button" class="btn btn-danger deleteBtn">删除</button>
@@ -104,7 +100,7 @@
         var id = $(this).attr("data-id");
         window.location.href= ctxPath + 'knowledgeDetail?id='+id;
     });
-    function deleteKnowledge(id){
+    function deleteSystem(id){
         $.ajax({
             url:ctxPath+"deleteKnowledge",
             data:{

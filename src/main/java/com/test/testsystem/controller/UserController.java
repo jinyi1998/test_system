@@ -18,23 +18,27 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
-    public String index(){
-        return "index";
+    @RequestMapping("/userHome")
+    public String userHome(){
+        return "user_home";
     }
+
 
     @RequestMapping("/userLogin")
     public String userLogin(){
         return "user_login";
     }
 
-
-    @RequestMapping("/doLogin")
+    @RequestMapping("/doUserLogin")
     @ResponseBody
-    public JsonResult doLogin(String username, String password, HttpSession session){
+    public JsonResult doUserLogin(String username, String password, HttpSession session){
         return userService.doUserLogin(username,password,session);
     }
 
+    @RequestMapping("/userSetting")
+    public String userSetting(){
+        return "user/user_setting";
+    }
 
     @RequestMapping("/userRegister")
     public String userRegister(){

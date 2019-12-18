@@ -90,6 +90,70 @@
 
 <div th:include="common/common_js::commonJs"></div>
 
+<script>
+
+    $(function(){
+        page(1,10);
+    });
+    $("#addBtn").click(function(){
+        window.location.href= ctxPath + 'systemDetail?id='+0;
+    });
+    $("body").on("click",".deleteBtn",function(event){
+                         var id = $(this).attr("data-id");
+                       deleteKnowledge(id);
+    });
+    $("body").on("click",".updateBtn",function(event){
+        var id = $(this).attr("data-id");
+        window.location.href= ctxPath + 'knowledgeDetail?id='+id;
+    });
+    function deleteKnowledge(id){
+        $.ajax({
+            url:ctxPath+"deleteKnowledge",
+            data:{
+                id:id
+            },
+            type:'POST',
+            success:function (data) {
+                if (data.code == '1'){
+                    page(1,10);
+                }else {
+                    alert("删除失败");
+                }
+            }
+        })
+
+    }
+
+    function page(currentPage,pageSize) {
+        $.ajax({
+            url:ctxPath+"getKnowledgeList",
+            data:{
+                page:currentPage,
+                pageSize:pageSize
+            },
+            type:'POST',
+            success:function (data) {
+                if (data.code == '1'){
+                    console.log(data.data);
+                    //获取知识结构列表成功
+                    var tableContentStr = "";
+                    $("#pageContent").empty();
+                    $(data.data.list).each(function (i,item) {
+                        tableContentStr = tableContentStr + "<tr>";
+                        tableContentStr = tableContentStr + "<td>"+item.id+"</td>";
+                        tableContentStr = tableContentStr + "<td>"+item.knowledgeName+"</td>";
+                        tableContentStr = tableContentStr + "<td><button type='button' class='btn btn-warning updateBtn' data-id='"+item.id+"'>修改</button> <button data-id='"+item.id+"' type='button' class='btn btn-danger deleteBtn' >删除</button></td>";
+                        tableContentStr = tableContentStr + "</tr>";
+
+                    })
+                    $("#pageContent").append(tableContentStr);
+                    commonPage(data.data,currentPage);
+
+                }
+            }
+        })
+    }
+</script>
 </body>
 
 </html>

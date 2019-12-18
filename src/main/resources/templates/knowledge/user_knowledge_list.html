@@ -22,7 +22,7 @@
 
     <div th:include="common/top::topMenu"></div>
 
-    <div th:include="common/left_menu::leftMenu"></div>
+    <div th:include="common/left_user_menu::leftMenu"></div>
 
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -43,7 +43,7 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-
+                                    <th>ID</th>
                                     <th>知识点名称</th>
 
                                 </tr>
@@ -51,16 +51,7 @@
                                 <tbody id="pageContent">
                                 <tr>
                                     <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td>active</td>
-                                    <td>2</td>
-                                    <td class="txt-oflo">April 18, 2017</td>
-                                    <td>2</td>
-                                    <td class="txt-oflo">April 18, 2017</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning updateBtn" data-id="3">修改</button>
-                                        <button data-id="3" type="button" class="btn btn-danger deleteBtn">删除</button>
-                                    </td>
+                                    <td class="txt-oflo">加减</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -101,10 +92,8 @@
                     $(data.data).each(function (i,item) {
                         console.log(item)
                         tableContentStr = tableContentStr + "<tr>";
-
                         tableContentStr = tableContentStr + "<td>"+item.knowledgeName+"</td>";
                         tableContentStr = tableContentStr + "</tr>";
-
                     })
                     $("#pageContent").append(tableContentStr);
 

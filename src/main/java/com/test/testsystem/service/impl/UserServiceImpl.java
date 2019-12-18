@@ -3,7 +3,6 @@ package com.test.testsystem.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.test.testsystem.dao.UserRepos;
-import com.test.testsystem.model.Knowledge;
 import com.test.testsystem.model.User;
 import com.test.testsystem.service.UserService;
 import com.test.testsystem.utils.JsonResult;

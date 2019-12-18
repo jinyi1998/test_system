@@ -35,7 +35,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="button" onclick="userLogin()" class="btn btn-success" style="width:100px;">登录</button>
                             &nbsp;&nbsp;
-                            <button type="button" onclick="register()" class="btn btn-warning" style="width:100px;">去注册</button>
+                            <button type="button" onclick="register()" class="btn btn-warning" style="width:100px;">注册</button>
 
                         </div>
                     </div>
@@ -56,14 +56,13 @@
     }
 
     function userLogin(){
-
         $.ajax({
-            url:ctxPath+'doLogin',
+            url:ctxPath+'doUserLogin',
             data:$("#loginForm").serialize(),
             type:'POST',
             success:function(data){
                 if (data.code == 1){
-                    window.location.href = ctxPath+"systemList";//登录成功  跳转到管理员主页面
+                     window.location.href = ctxPath+"/userHome";//登录成功
                 } else{
                     alert("登录失败，请检查账号密码");
                 }
