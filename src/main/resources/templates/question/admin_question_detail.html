@@ -97,7 +97,7 @@
     $("#submitBtn").click(function(){
         $.ajax({
             url:ctxPath+"saveQuestion",
-            data:$("#quetsionForm").serialize(),
+            data:$("#questionForm").serialize(),
             type:'POST',
             success:function (data) {
                 if (data.code == '1'){

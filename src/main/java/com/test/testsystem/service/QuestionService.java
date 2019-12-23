@@ -20,6 +20,8 @@ public interface QuestionService {
 
    JsonResult getPageQuestionList(Integer page,Integer pageSize);
 
+   JsonResult getNextQuestion(Integer userId);
+
 
 
    List<UserQuestionDto> getUserQuestionKnowledgeList(User user);

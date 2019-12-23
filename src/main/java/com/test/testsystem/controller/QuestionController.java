@@ -58,6 +58,16 @@ public class QuestionController {
         return JsonResult.success(questionService.getQuestionById(id));
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "getNextQuestion",method = RequestMethod.POST)
+    public JsonResult getNextQuestion(HttpSession  session){
+        User user = (User) session.getAttribute("user");
+        return JsonResult.success(questionService.getNextQuestion(user.getId()));
+    }
+
+
+
     /**
      * 获取用户做题记录
      * @param session

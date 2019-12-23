@@ -6,10 +6,7 @@ import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -72,8 +69,8 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "saveUser",method = RequestMethod.POST)
-    public JsonResult saveUser(User user){
+    @RequestMapping(value = "saveUser",method = RequestMethod.POST,produces = "application/json")
+    public JsonResult saveUser(  User user){
         return userService.saveUser(user);
     }
 
