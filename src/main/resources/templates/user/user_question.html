@@ -1,11 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Userquestion</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="common/common_css::commonCss">
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon.png}">
+    <title>账户设置</title>
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
-<body>
-qqq
-qqq
+
+<body class="fix-header">
+
+
+<div id="wrapper">
+    <nav class="navbar navbar-default navbar-static-top m-b-0">
+
+        <div class="navbar-header" style="height: 50px;">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-danger deleteBtn">退出</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary">重做</button>
+        </div>
+    </nav>
+
+    <div>
+        <form style="padding: 90px 0 0;">
+            <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+        </form>
+
+
+    </div>
+
+</div>
+
+<div th:include="common/common_js::commonJs"></div>
+
 </body>
+
 </html>
