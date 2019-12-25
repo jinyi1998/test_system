@@ -98,7 +98,7 @@
     function saveQuestion(url) {
         var questionId = $("#questionId").attr("data-id");
         var answer = $("#questionId").attr("data-answer"); //正确答案
-        var userAnswer = $("#questionId option:selected").val();//用户选择的答案
+        var userAnswer = $("#questionId option:selected").val().split(".")[0];//用户选择的答案
         var userQuestionStatus = 0;//没答对
         if (answer == userAnswer){
             userQuestionStatus = 1;//答对了

@@ -4,11 +4,10 @@
 <head th:include="common/common_css::commonCss">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon.png}">
-    <title>知识结构管理</title>
+    <title>我的知识画像</title>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
-    <script th:src="@{/js/echarts.min.js}"></script>
 </head>
 
 <body class="fix-header">
@@ -30,7 +29,7 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">知识结构</h4> </div>
+                    <h4 class="page-title">我的知识画像</h4> </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 
                 </div>
@@ -40,25 +39,7 @@
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="white-box">
-                        <h3 class="box-title">知识结构列表</h3>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>知识点名称</th>
-
-                                </tr>
-                                </thead>
-                                <tbody id="pageContent">
-                                <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">加减</td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
+                        <div id="chart" style="width: 800px;height: 300px;"></div>
                     </div>
                 </div>
             </div>
@@ -75,34 +56,17 @@
 <script>
 
     $(function(){
-        page(1,10);
     });
-    function  initChart() {
+    function  initChartOption(xAxis,val) {
         var  option = {
             title : {
                 text: '用户知识结构图'
             },
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['知识结构名称']
-            },
-            toolbox: {
-                show : true,
-                feature : {
-                    mark : {show: true},
-                    dataView : {show: true, readOnly: false},
-                    magicType : {show: true, type: ['line', 'bar']},
-                    restore : {show: true},
-                    saveAsImage : {show: true}
-                }
-            },
-            calculable : true,
+
             xAxis : [
                 {
                     type : 'category',
-                    data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                    data : xAxis
                 }
             ],
             yAxis : [
@@ -112,13 +76,34 @@
             ],
             series : [
                 {
-                    name:'蒸发量',
+                    name:'掌握度',
                     type:'bar',
-                    data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                    data:val,
 
                 }
             ]
         };
+        return option;
+    }
+    getData();
+    function getData() {
+
+        $.ajax({
+            url:ctxPath+"getUserKnowledgeCharts",
+            type:'POST',
+            success:function (data) {
+                var xAxis = [];
+                var values = [];
+               $(data.data.data).each(function (i,item) {
+                   xAxis.push(item.xaxis);
+                   values.push(item.value);
+               });
+               var option = initChartOption(xAxis,values);
+                var myChart = echarts.init(document.getElementById("chart"));
+                myChart.setOption(option);
+
+            }
+        })
     }
 </script>
 

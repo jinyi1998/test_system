@@ -49,6 +49,7 @@ public class EntityUtils {
                 returnList.add(constructor.newInstance(o));
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             logger.error("实体数据转化为实体类发生异常：异常信息：{}", ex.getMessage());
             return returnList;
         }

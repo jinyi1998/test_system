@@ -18,6 +18,7 @@ import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.*;
 
 @Service
@@ -144,12 +145,24 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<KnowledegeQuestionCount> getKnowledegeQuestionCount(User user) {
-        return EntityUtils.castEntity(questionRepos.getKnowledgeQuestionCount(),KnowledegeQuestionCount.class,new KnowledegeQuestionCount());
+        List<Object[]> objects = questionRepos.getKnowledgeQuestionCount();
+        return EntityUtils.castEntity(objects,KnowledegeQuestionCount.class,new KnowledegeQuestionCount());
     }
 
     @Override
     public List<UserQuestionRightCount> getUserQuestionRightCount(User user) {
-        return EntityUtils.castEntity(questionRepos.getUserRightCount(user.getId()),UserQuestionRightCount.class,new UserQuestionRightCount());
+        List<Object[]> objects = questionRepos.getUserRightCount(user.getId());
+        List<UserQuestionRightCount> userQuestionRightCounts = new ArrayList<>();
+        for (Object[] objects1:objects){
+            UserQuestionRightCount userQuestionRightCount = new UserQuestionRightCount();
+            userQuestionRightCount.setQuestionId((Integer) objects1[0]);
+            userQuestionRightCount.setKnowledgeId(((Integer) objects1[1]).intValue());
+            userQuestionRightCount.setRightCount(((BigInteger) objects1[2]).intValue());
+
+            userQuestionRightCount.setQuestionName((String) objects1[3]);
+            userQuestionRightCounts.add(userQuestionRightCount);
+        }
+        return userQuestionRightCounts;
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,13 +74,25 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             chartEntity.setXAxis(k.getKnowledgeName());
             Integer  right = 0;
             for (UserQuestionRightCount rightCount:rightCounts){
-                if (k.getKnowledgeId() == rightCount.getKnowledgeId()){
-                    right = right + rightCount.getRightCount();
+                if (k.getKnowledgeId() == rightCount.getKnowledgeId().intValue()){
+                    right = right + rightCount.getRightCount().intValue();
                 }
             }
-            chartEntity.setValue((right/k.getTotalCount())+"");
+            if (k.getTotalCount().intValue() == 0){
+                chartEntity.setValue("0");
+            }else {
+                chartEntity.setValue(getCal(right,k.getTotalCount().intValue()));
+
+            }
             chartEntities.add(chartEntity);
         }
         return JsonResult.success(chartEntities);
+    }
+    public String getCal(Integer v1,Integer v2){
+        Double d = Double.valueOf(v1)/Double.valueOf(v2);
+        BigDecimal b = new BigDecimal(d);
+        d = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return d.toString();
+
     }
 }
