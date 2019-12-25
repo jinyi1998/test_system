@@ -26,4 +26,6 @@ public interface UserService {
    JsonResult doUserLogin(String username, String password, HttpSession session);
 
    JsonResult saveUserQuestions(UserQuestions userQuestions);
+
+   JsonResult adminSaveUser(User user);
 }

@@ -30,12 +30,6 @@
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                     <h4 class="page-title">用户详情</h4> </div>
-                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                    <a href="#" target="_blank" id="addBtn" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">新增</a>
-                    <a href="#" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">查找</a>
-
-                </div>
-
             </div>
 
             <div class="row">
@@ -79,7 +73,7 @@
 
     $("#submitBtn").click(function(){
         $.ajax({
-            url:ctxPath+"saveUser",
+            url:ctxPath+"adminSaveUser",
             data:$("#userForm").serialize(),
             type:'POST',
             success:function (data) {

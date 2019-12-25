@@ -89,6 +89,18 @@ public class UserController {
         return userService.saveUser(user1);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "adminSaveUser",method = RequestMethod.POST,produces = "application/json")
+    public JsonResult adminSaveUser(User user){
+        return userService.adminSaveUser(user);
+    }
+
+//    @ResponseBody
+//    @RequestMapping(value = "saveKnowledge",method = RequestMethod.POST)
+//    public JsonResult saveKnowledge(Knowledge knowledge){
+//        return knowledgeService.saveKnowledge(knowledge);
+//    }
+
 
     @ResponseBody
     @RequestMapping(value = "deleteUser",method = RequestMethod.POST)

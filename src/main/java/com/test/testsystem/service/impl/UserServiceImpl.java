@@ -38,6 +38,15 @@ public class UserServiceImpl implements UserService {
         return JsonResult.success(userRepos.save(user));
     }
 
+    @Override
+    public JsonResult adminSaveUser(User user) {
+        if (null == user.getId() || 0 == user.getId()){
+            user.setUpdateTime(new Date());
+            user.setCreateTime(new Date());
+        }
+        return JsonResult.success(userRepos.save(user));
+    }
+
 
     //    保存做题记录
     @Override
