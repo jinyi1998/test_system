@@ -22,8 +22,6 @@ public interface QuestionService {
 
    JsonResult getNextQuestion(Integer userId);
 
-
-
    List<UserQuestionDto> getUserQuestionKnowledgeList(User user);
 
 }

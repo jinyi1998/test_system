@@ -4,7 +4,7 @@
 <head th:include="common/common_css::commonCss">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon.png}">
-    <title>题库管理</title>
+    <title>用户管理</title>
 
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -23,50 +23,38 @@
 
     <div th:include="common/top::topMenu"></div>
 
-    <div th:include="common/left_menu::leftMenu"></div>
+    <div th:include="common/left_user_menu::leftMenu"></div>
 
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">题库管理</h4> </div>
-                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                    <a href="#" target="_blank" id="addBtn" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">新增</a>
-
-                </div>
-
+                    <h4 class="page-title">用户管理</h4> </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="white-box">
-                        <h3 class="box-title">试题列表</h3>
+                        <h3 class="box-title">用户列表</h3>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>试题名称</th>
-                                    <th>试题描述</th>
-                                    <th>试题选项</th>
-                                    <th>正确答案</th>
-                                    <th>知识点ID</th>
-                                    <th>试题等级</th>
+                                    <th>用户名</th>
+                                    <th>密码</th>
+
                                 </tr>
                                 </thead>
                                 <tbody id="pageContent">
                                 <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">name</td>
-                                    <td>description</td>
-                                    <td class="txt-oflo">A.B.</td>
-                                    <td>A</td>
-                                    <td>12</td>
-                                    <td>1</td>
+
+                                    <td class="txt-oflo">aaaa</td>
+                                    <td>passs</td>
+
 
                                     <td>
                                         <button type="button" class="btn btn-warning updateBtn" data-id="3">修改</button>
-                                        <button data-id="3" type="button" class="btn btn-danger deleteBtn">删除</button>
+
                                     </td>
                                 </tr>
                                 </tbody>
@@ -93,44 +81,22 @@
 </div>
 
 <div th:include="common/common_js::commonJs"></div>
-
 <script>
 
     $(function(){
         page(1,10);
     });
-    $("#addBtn").click(function(){
-        window.location.href= ctxPath + 'questionDetail?id='+0;
-    });
-    $("body").on("click",".deleteBtn",function(event){
-                         var id = $(this).attr("data-id");
-                       deleteQuestion(id);
-    });
+
+
     $("body").on("click",".updateBtn",function(event){
         var id = $(this).attr("data-id");
-        window.location.href= ctxPath + 'questionDetail?id='+id;
+        window.location.href= ctxPath + 'userDetail?id='+id;
     });
-    function deleteQuestion(id){
-        $.ajax({
-            url:ctxPath+"deleteQuestion",
-            data:{
-                id:id
-            },
-            type:'POST',
-            success:function (data) {
-                if (data.code == '1'){
-                    page(1,10);
-                }else {
-                    alert("删除失败");
-                }
-            }
-        })
 
-    }
 
     function page(currentPage,pageSize) {
         $.ajax({
-            url:ctxPath+"getQuestionList",
+            url:ctxPath+"getUserList",
             data:{
                 page:currentPage,
                 pageSize:pageSize
@@ -143,14 +109,10 @@
                     $("#pageContent").empty();
                     $(data.data.list).each(function (i,item) {
                         tableContentStr = tableContentStr + "<tr>";
-                        tableContentStr = tableContentStr + "<td>"+item.id+"</td>";
-                        tableContentStr = tableContentStr + "<td>"+item.questionName+"</td>";
-                        tableContentStr = tableContentStr + "<td>"+item.questionDesc+"</td>";
-                        tableContentStr = tableContentStr + "<td>"+item.questionOptions+"</td>";
-                        tableContentStr = tableContentStr + "<td>"+item.questionCorrectAnswer+"</td>";
-                        tableContentStr = tableContentStr + "<td>"+item.questionLevel+"</td>";
-                        tableContentStr = tableContentStr + "<td>"+item.questionId+"</td>";
-                        tableContentStr = tableContentStr + "<td><button type='button' class='btn btn-warning updateBtn' data-id='"+item.id+"'>修改</button> <button data-id='"+item.id+"' type='button' class='btn btn-danger deleteBtn' >删除</button></td>";
+
+                        tableContentStr = tableContentStr + "<td>"+item.username+"</td>";
+                        tableContentStr = tableContentStr + "<td>"+item.password+"</td>";
+                        tableContentStr = tableContentStr + "<td><button type='button' class='btn btn-warning updateBtn' data-id='"+item.id+"'>修改</button></td>";
                         tableContentStr = tableContentStr + "</tr>";
 
                     })
@@ -162,6 +124,7 @@
         })
     }
 </script>
+
 </body>
 
 </html>

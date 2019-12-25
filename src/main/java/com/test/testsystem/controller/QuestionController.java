@@ -67,7 +67,6 @@ public class QuestionController {
     }
 
 
-
     /**
      * 获取用户做题记录
      * @param session
@@ -81,9 +80,9 @@ public class QuestionController {
     }
 
 
-    @RequestMapping("/userKnowledge")
-    public String userKnowledge(){
-        return "knowledge/user_knowledge_list";
-    }
+//    @RequestMapping("/userKnowledge")
+//    public String userKnowledge(){
+//        return "knowledge/user_knowledge_list";
+//    }
 
 }

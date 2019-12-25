@@ -52,6 +52,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="questionDesc" class="col-sm-2 control-label">问题描述</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="questionDesc" name="questionDesc" th:value="${question.questionDesc}" placeholder="请输入详情">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="questionOptions" class="col-sm-2 control-label">问题选项</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" id="questionOptions" name="questionOptions" th:value="${question.questionOptions}" placeholder="请输入选项">
@@ -103,7 +109,7 @@
                 if (data.code == '1'){
                     window.location.href = ctxPath + "questionList";
                 }else {
-                    alert("删除失败");
+                    alert("提交失败");
                 }
             }
         })

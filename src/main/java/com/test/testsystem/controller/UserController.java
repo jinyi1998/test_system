@@ -1,6 +1,7 @@
 package com.test.testsystem.controller;
 
 import com.test.testsystem.model.User;
+import com.test.testsystem.model.UserQuestions;
 import com.test.testsystem.service.UserService;
 import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,11 @@ public class UserController {
         return "user/user_question";
     }
 
+    @RequestMapping("/userKnowledge")
+    public String userKnowledge(){
+        return "user/user_knowledge_list";
+    }
+
     @RequestMapping("/userDetail")
     public String userDetail(@RequestParam("id") Integer id, Model model){
         if (null == id || 0 ==id){
@@ -70,7 +76,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "saveUser",method = RequestMethod.POST,produces = "application/json")
-    public JsonResult saveUser(  User user){
+    public JsonResult saveUser(User user){
         return userService.saveUser(user);
     }
 
@@ -86,5 +92,10 @@ public class UserController {
         return JsonResult.success(userService.getUserById(id));
     }
 
-
+    //保存答题记录并退出
+    @ResponseBody
+    @RequestMapping(value = "saveUserQuestions",method = RequestMethod.POST,produces = "application/json")
+    public JsonResult saveUserQuestions(UserQuestions userQuestions){
+        return userService.saveUserQuestions(userQuestions);
+    }
 }

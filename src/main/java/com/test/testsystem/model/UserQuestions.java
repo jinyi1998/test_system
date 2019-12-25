@@ -7,10 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- * @author:Amos
- * @date:2019-12-22
- **/
 @Data
 @Entity
 public class UserQuestions {

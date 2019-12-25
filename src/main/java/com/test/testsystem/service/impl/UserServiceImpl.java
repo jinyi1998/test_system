@@ -2,8 +2,10 @@ package com.test.testsystem.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.test.testsystem.dao.UserQuestionRepos;
 import com.test.testsystem.dao.UserRepos;
 import com.test.testsystem.model.User;
+import com.test.testsystem.model.UserQuestions;
 import com.test.testsystem.service.UserService;
 import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepos userRepos;
+    private UserQuestionRepos userQuestionRepos;
 
 
     @Override
@@ -32,6 +35,12 @@ public class UserServiceImpl implements UserService {
         }
 
         return JsonResult.success(userRepos.save(user));
+    }
+
+//    保存做题记录
+    @Override
+    public JsonResult saveUserQuestions(UserQuestions userQuestions) {
+        return JsonResult.success(userQuestionRepos.save(userQuestions));
     }
 
     @Override
@@ -68,4 +77,6 @@ public class UserServiceImpl implements UserService {
             return JsonResult.error("登录失败");
         }
     }
+
+
 }

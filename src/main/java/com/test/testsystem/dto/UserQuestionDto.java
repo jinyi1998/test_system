@@ -3,10 +3,6 @@ package com.test.testsystem.dto;
 import lombok.Data;
 import org.omg.CORBA.INTERNAL;
 
-/**
- * @author:Amos
- * @date:2019-12-11
- **/
 @Data
 public class UserQuestionDto {
     private Integer userId;
@@ -22,6 +18,7 @@ public class UserQuestionDto {
     public UserQuestionDto(){
 
     }
+
     public UserQuestionDto(Integer userId,Integer questionId,String questionName,Integer userQuestionStatus,String knowledgeName,Integer knowledgeId ){
         this.knowledgeName = knowledgeName;
         this.userId = userId;

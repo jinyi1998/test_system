@@ -30,7 +30,7 @@
             </div>
             <div class="row ">
                 <form class="form-horizontal" role="form" id="loginForm">
-                    <div class="form-group">
+                    <div class="form-group" id="userQuestionsForm">
                         <label id="questionTitle" class="col-sm-2 control-label"></label>
                         <div class="col-sm-6">
                             <select id="questionId" class="form-control">
@@ -40,9 +40,9 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" onclick="userLogin()" class="btn btn-success" style="width:100px;">保存退出</button>
+                            <button type="button" onclick="saveQuit()" class="btn btn-success" style="width:100px;">保存退出</button>
                             &nbsp;&nbsp;
-                            <button type="button" onclick="register()" class="btn btn-warning" style="width:100px;">继续答题</button>
+                            <button type="button" onclick="nextQues()" class="btn btn-warning" style="width:100px;">继续答题</button>
 
                         </div>
                     </div>
@@ -84,6 +84,36 @@
                 $("#questionTitle").append(data.data.data.questionDesc);
             }
         })
+    }
+     function saveQuit() {
+     $.ajax({
+            url:ctxPath+"saveUserQuestions",
+            data:$("#userQuestionsForm").serialize(),
+            type:'POST',
+            success:function (data) {
+                if (data.code == '1'){
+                    window.location.href = ctxPath + "/userHome";
+                }else {
+                    alert("保存失败");
+                }
+            }
+        })
+    }
+
+    function nextQues(){
+      $.ajax({
+            url:ctxPath+"saveUserQuestions",
+            data:$("#userQuestionsForm").serialize(),
+            type:'POST',
+            success:function (data) {
+                if (data.code == '1'){
+                    window.location.href = ctxPath +"/userQuestion";
+                }else {
+                    alert("操作失败");
+                }
+            }
+        })
+
     }
 </script>
 </body>

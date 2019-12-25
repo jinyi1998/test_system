@@ -2,6 +2,7 @@ package com.test.testsystem.service;
 
 
 import com.test.testsystem.model.User;
+import com.test.testsystem.model.UserQuestions;
 import com.test.testsystem.utils.JsonResult;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,5 @@ public interface UserService {
 
    JsonResult doUserLogin(String username, String password, HttpSession session);
 
-
-
+   JsonResult saveUserQuestions(UserQuestions userQuestions);
 }
