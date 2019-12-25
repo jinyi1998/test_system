@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.test.testsystem.dao.QuestionRepos;
 import com.test.testsystem.dao.UserQuestionRepos;
+import com.test.testsystem.dto.KnowledegeQuestionCount;
 import com.test.testsystem.dto.UserQuestionDto;
+import com.test.testsystem.dto.UserQuestionRightCount;
 import com.test.testsystem.model.Question;
 import com.test.testsystem.model.User;
 import com.test.testsystem.model.UserQuestions;
@@ -102,6 +104,17 @@ public class QuestionServiceImpl implements QuestionService {
         Integer userNearId = UserQuestionUtils.getUserNearedQuestions(map,questionIds);
            List<UserQuestions>  userQuestionsSelected = map.get(userNearId);
            List<Integer> selecedQuestionIds = new ArrayList<>();
+           if (null == userQuestionsSelected){
+               List<Question> questions = questionRepos.findAll();
+               Integer questionRandomId = new Random().nextInt(questions.size()-1)+1;
+               while (questionIds.contains(questionRandomId)){
+                   questionRandomId = new Random().nextInt(questions.size());
+               }
+               questionSelected = questionRandomId;
+               System.out.println(questionRandomId);
+               Question question = questionRepos.findById(questionSelected).get();
+               return JsonResult.success(question);
+           }
            for (UserQuestions userQuestions1:userQuestionsSelected){
                selecedQuestionIds.add(userQuestions1.getQuestionId());
            }
@@ -111,7 +124,7 @@ public class QuestionServiceImpl implements QuestionService {
                questionSelected = selecedQuestionIds.get(0);
            }else {
                 List<Question> questions = questionRepos.findAll();
-                Integer questionRandomId = new Random().nextInt(questions.size());
+               Integer questionRandomId = new Random().nextInt(questions.size()-1)+1;
                 while (questionIds.contains(questionRandomId)){
                     questionRandomId = new Random().nextInt(questions.size());
                 }
@@ -127,5 +140,21 @@ public class QuestionServiceImpl implements QuestionService {
 
         return EntityUtils.castEntity(questionRepos.getUserQuestionKnowledgeList(user.getId()),UserQuestionDto.class,new UserQuestionDto());
 
+    }
+
+    @Override
+    public List<KnowledegeQuestionCount> getKnowledegeQuestionCount(User user) {
+        return EntityUtils.castEntity(questionRepos.getKnowledgeQuestionCount(),KnowledegeQuestionCount.class,new KnowledegeQuestionCount());
+    }
+
+    @Override
+    public List<UserQuestionRightCount> getUserQuestionRightCount(User user) {
+        return EntityUtils.castEntity(questionRepos.getUserRightCount(user.getId()),UserQuestionRightCount.class,new UserQuestionRightCount());
+    }
+
+    @Override
+    public JsonResult saveUserQuestion(UserQuestions userQuestions) {
+        userQuestionRepos.save(userQuestions);
+        return JsonResult.success();
     }
 }

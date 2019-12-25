@@ -29,8 +29,8 @@
 
             </div>
             <div class="row ">
-                <form class="form-horizontal" role="form" id="loginForm">
-                    <div class="form-group" id="userQuestionsForm">
+                <form class="form-horizontal" role="form" id="userQuestionsForm">
+                    <div class="form-group" >
                         <label id="questionTitle" class="col-sm-2 control-label"></label>
                         <div class="col-sm-6">
                             <select id="questionId" class="form-control">
@@ -81,39 +81,43 @@
                 })
                 $("#questionId").empty();
                 $("#questionId").append(optionStr);
+                $("#questionId").attr("data-answer",data.data.data.questionCorrectAnswer);
+                $("#questionId").attr("data-id",data.data.data.id);
                 $("#questionTitle").append(data.data.data.questionDesc);
             }
         })
     }
      function saveQuit() {
-     $.ajax({
-            url:ctxPath+"saveUserQuestions",
-            data:$("#userQuestionsForm").serialize(),
-            type:'POST',
-            success:function (data) {
-                if (data.code == '1'){
-                    window.location.href = ctxPath + "/userHome";
-                }else {
-                    alert("保存失败");
-                }
-            }
-        })
+
+         saveQuestion("/userHome");
     }
 
     function nextQues(){
-      $.ajax({
+        saveQuestion("/userQuestion");
+    }
+    function saveQuestion(url) {
+        var questionId = $("#questionId").attr("data-id");
+        var answer = $("#questionId").attr("data-answer"); //正确答案
+        var userAnswer = $("#questionId option:selected").val();//用户选择的答案
+        var userQuestionStatus = 0;//没答对
+        if (answer == userAnswer){
+            userQuestionStatus = 1;//答对了
+        }
+        $.ajax({
             url:ctxPath+"saveUserQuestions",
-            data:$("#userQuestionsForm").serialize(),
+            data:{
+                "questionId":questionId,
+                "userQuestionStatus":userQuestionStatus
+            },
             type:'POST',
             success:function (data) {
                 if (data.code == '1'){
-                    window.location.href = ctxPath +"/userQuestion";
+                    window.location.href = ctxPath +url;
                 }else {
                     alert("操作失败");
                 }
             }
         })
-
     }
 </script>
 </body>

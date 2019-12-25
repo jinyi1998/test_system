@@ -1,6 +1,7 @@
 package com.test.testsystem.service;
 
 import com.test.testsystem.model.Knowledge;
+import com.test.testsystem.model.User;
 import com.test.testsystem.utils.JsonResult;
 import java.util.List;
 
@@ -15,6 +16,8 @@ public interface KnowledgeService {
    List<Knowledge> getKnowledgeList();
 
    JsonResult getPageKnowledgeList(Integer page,Integer pageSize);
+
+   JsonResult getUserKnowledgeCharts(User user);
 
 
 }

@@ -14,6 +14,7 @@ public interface UserService {
 
    JsonResult saveUser(User user);
 
+
    JsonResult deleteUser(Integer id);
 
    List<User> getUserList();

@@ -1,6 +1,7 @@
 package com.test.testsystem.controller;
 
 import com.test.testsystem.model.Knowledge;
+import com.test.testsystem.model.User;
 import com.test.testsystem.service.KnowledgeService;
 import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class KnowledgeController {
@@ -54,4 +57,12 @@ public class KnowledgeController {
     public JsonResult getKnowledge(Integer id){
         return JsonResult.success(knowledgeService.getKnowledgeById(id));
     }
+
+    @ResponseBody
+    @RequestMapping(value = "getUserKnowledgeCharts",method = RequestMethod.POST)
+    public JsonResult getUserKnowledgeCharts(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        return JsonResult.success(knowledgeService.getUserKnowledgeCharts(user));
+    }
+
 }

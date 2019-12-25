@@ -7,6 +7,8 @@
     <title>知识结构管理</title>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <script th:src="@{/js/echarts.min.js}"></script>
 </head>
 
 <body class="fix-header">
@@ -75,32 +77,48 @@
     $(function(){
         page(1,10);
     });
-
-
-    function page(currentPage,pageSize) {
-        $.ajax({
-            url:ctxPath+"getUserQuestionKnowledgeList",
-            data:{
+    function  initChart() {
+        var  option = {
+            title : {
+                text: '用户知识结构图'
             },
-            type:'POST',
-            success:function (data) {
-                if (data.code == '1'){
-                    console.log(data.data);
-                    //获取知识结构列表成功
-                    var tableContentStr = "";
-                    $("#pageContent").empty();
-                    $(data.data).each(function (i,item) {
-                        console.log(item)
-                        tableContentStr = tableContentStr + "<tr>";
-                        tableContentStr = tableContentStr + "<td>"+item.knowledgeName+"</td>";
-                        tableContentStr = tableContentStr + "</tr>";
-                    })
-                    $("#pageContent").append(tableContentStr);
-
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['知识结构名称']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'蒸发量',
+                    type:'bar',
+                    data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
 
                 }
-            }
-        })
+            ]
+        };
     }
 </script>
 

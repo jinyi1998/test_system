@@ -2,6 +2,7 @@ package com.test.testsystem.controller;
 
 import com.test.testsystem.model.Question;
 import com.test.testsystem.model.User;
+import com.test.testsystem.model.UserQuestions;
 import com.test.testsystem.service.QuestionService;
 import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,12 @@ public class QuestionController {
     public JsonResult getNextQuestion(HttpSession  session){
         User user = (User) session.getAttribute("user");
         return JsonResult.success(questionService.getNextQuestion(user.getId()));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "saveUserQuestion",method = RequestMethod.POST)
+    public JsonResult getNextQuestion(UserQuestions userQuestions){
+        return JsonResult.success(questionService.saveUserQuestion(userQuestions));
     }
 
 

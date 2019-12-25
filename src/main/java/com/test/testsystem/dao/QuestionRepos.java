@@ -20,6 +20,26 @@ public interface QuestionRepos extends JpaRepository<Question,Integer> {
 
 
 
+    @Query(value = "SELECT knowledge.id as knowledgeId, knowledge_name as knowledegeName, question.id as questionId, count(question.id) as questionCount FROM knowledge left join question on knowledge.id = question.knowledge_id " +
+
+            " GROUP BY knowledgeId ",nativeQuery = true)
+    List<Object []> getKnowledgeQuestionCount( );
+
+
+
+    @Query(value = "SELECT q.id as questionId q.question_name as questionName, count(uq.id) as rightCount,k.id as knoledgeId " +
+            "FROM knowledge k " +
+            "LEFT JOIN question q ON q.knowledge_id = k.id " +
+            "LEFT JOIN user_questions uq ON q.id = uq.question_id " +
+            "WHERE " +
+            " uq.user_question_status = 1 " +
+            "AND uq.user_id = ?1 " +
+            "GROUP BY " +
+            " q.question_name, " +
+            " q.id",nativeQuery = true)
+    List<Object []> getUserRightCount(Integer userId);
+
+
 
 
 

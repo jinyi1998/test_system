@@ -17,10 +17,17 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/userHome")
-    public String userHome(){
+    public String userHome(HttpSession session,Model model){
+        User user1 = (User) session.getAttribute("user");
+        model.addAttribute("username",user1.getUsername());
         return "user_home";
     }
 
+
+    @RequestMapping("/")
+    public String index(){
+        return "user_login";
+    }
 
     @RequestMapping("/userLogin")
     public String userLogin(){
@@ -76,9 +83,12 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "saveUser",method = RequestMethod.POST,produces = "application/json")
-    public JsonResult saveUser(User user){
-        return userService.saveUser(user);
+    public JsonResult saveUser(User user,HttpSession session){
+        User user1 = (User) session.getAttribute("user");
+        user1.setPassword(user.getPassword());
+        return userService.saveUser(user1);
     }
+
 
     @ResponseBody
     @RequestMapping(value = "deleteUser",method = RequestMethod.POST)
@@ -95,7 +105,9 @@ public class UserController {
     //保存答题记录并退出
     @ResponseBody
     @RequestMapping(value = "saveUserQuestions",method = RequestMethod.POST,produces = "application/json")
-    public JsonResult saveUserQuestions(UserQuestions userQuestions){
+    public JsonResult saveUserQuestions(UserQuestions userQuestions,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        userQuestions.setUserId(user.getId());
         return userService.saveUserQuestions(userQuestions);
     }
 }

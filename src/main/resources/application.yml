@@ -2,5 +2,8 @@ spring:
   datasource:
     username: root
     password: g78u0Mnh
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://39.98.45.151:3306/test_system?characterEncoding=utf8
+
+server:
+  port: 8081

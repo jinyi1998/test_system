@@ -19,6 +19,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepos userRepos;
+    @Autowired
     private UserQuestionRepos userQuestionRepos;
 
 
@@ -37,7 +38,8 @@ public class UserServiceImpl implements UserService {
         return JsonResult.success(userRepos.save(user));
     }
 
-//    保存做题记录
+
+    //    保存做题记录
     @Override
     public JsonResult saveUserQuestions(UserQuestions userQuestions) {
         return JsonResult.success(userQuestionRepos.save(userQuestions));
