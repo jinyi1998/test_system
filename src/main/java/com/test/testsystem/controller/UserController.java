@@ -34,6 +34,11 @@ public class UserController {
         return "user_login";
     }
 
+    @RequestMapping("/userMain")
+    public String userMain(){
+        return "user/user_main_menu";
+    }
+
     @RequestMapping("/doUserLogin")
     @ResponseBody
     public JsonResult doUserLogin(String username, String password, HttpSession session){

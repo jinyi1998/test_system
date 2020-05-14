@@ -10,13 +10,15 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
 
-<body class="fix-header">
+<body style="background-color:#254281;">
+<nav class="navbar navbar-inverse">
+    <button type="button" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> User
+    </button>
+</nav>
 
-
-<div id="wrapper">
-
-    <div style="text-align: center;width: 600px;height: 200px;margin:0px auto;margin-top: 300px;">
-        <h3 class="box-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开始注册</h3>
+    <div style="text-align: center;width: 600px;height: 200px;margin:0px auto;margin-top: 300px;background-color:#254281;">
+        <h1 class="box-title text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开始注册</h1>
         <form class="form-horizontal" role="form" id="registerForm">
             <div class="form-group">
                 <label for="username" class="col-sm-2 control-label">账号</label>
@@ -47,9 +49,7 @@
         </form>
     </div>
 
-
-</div>
-
+<img th:src="@{/img/bg.jpeg}"/>
 <div th:include="common/common_js::commonJs"></div>
 
 <script>
@@ -61,12 +61,12 @@
     function userRegister(){
 
         $.ajax({
-            url:ctxPath+'saveUser',
+            url:ctxPath+'adminSaveUser',
             data:$("#registerForm").serialize(),
             type:'POST',
             success:function(data){
                 if (data.code == 1){
-                    window.location.href = ctxPath+"/userHome";//登录成功  跳转到用户主页面
+                    window.location.href = ctxPath+"/userLogin";//登录成功  跳转到用户主页面
                 } else{
                     alert("注册失败，请检查输入信息");
                 }

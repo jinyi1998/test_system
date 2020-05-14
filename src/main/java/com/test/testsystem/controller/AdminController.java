@@ -24,11 +24,6 @@ public class AdminController {
         return "admin/admin_system_list";
     }
 
-    @RequestMapping("/errorPage")
-    public String error(){
-        return "admin/404";
-    }
-
     @RequestMapping("/doAdminLogin")
     @ResponseBody
     public JsonResult doAdminLogin(String username, String password, HttpSession session){

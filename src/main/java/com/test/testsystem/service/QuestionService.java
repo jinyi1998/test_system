@@ -1,7 +1,8 @@
 package com.test.testsystem.service;
 
 
-import com.test.testsystem.dto.KnowledegeQuestionCount;
+import com.test.testsystem.dto.CountedUserQUestion;
+import com.test.testsystem.dto.KnowledgeQuestionCount;
 import com.test.testsystem.dto.UserQuestionDto;
 import com.test.testsystem.dto.UserQuestionRightCount;
 import com.test.testsystem.model.Question;
@@ -27,11 +28,13 @@ public interface QuestionService {
 
    List<UserQuestionDto> getUserQuestionKnowledgeList(User user);
 
-   List<KnowledegeQuestionCount> getKnowledegeQuestionCount(User user);
+   List<CountedUserQUestion> getCountedUserQuestionKnowledgeList(User user);
+
+   List<KnowledgeQuestionCount> getKnowledgeQuestionCount(User user);
 
    List<UserQuestionRightCount> getUserQuestionRightCount(User user);
 
-
-
    JsonResult saveUserQuestion(UserQuestions userQuestions);
+
+
 }

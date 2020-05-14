@@ -86,6 +86,13 @@ public class QuestionController {
         return JsonResult.success(questionService.getUserQuestionKnowledgeList(user));
     }
 
+    @ResponseBody
+    @RequestMapping(value = "getCountedUserQuestionKnowledgeList",method = RequestMethod.POST)
+    public JsonResult getCountedUserQuestionKnowledgeList(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        return JsonResult.success(questionService.getCountedUserQuestionKnowledgeList(user));
+    }
+
 
 //    @RequestMapping("/userKnowledge")
 //    public String userKnowledge(){

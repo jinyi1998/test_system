@@ -5,16 +5,16 @@ import lombok.Data;
 import java.math.BigInteger;
 
 @Data
-public class KnowledegeQuestionCount {
+public class KnowledgeQuestionCount {
         private Integer knowledgeId;
         private String knowledgeName;
         private Integer questionId;
         private BigInteger totalCount;
 
-    public KnowledegeQuestionCount() {
+    public KnowledgeQuestionCount() {
     }
 
-    public KnowledegeQuestionCount(Integer knowledgeId, String knowledgeName, Integer questionId, BigInteger totalCount) {
+    public KnowledgeQuestionCount(Integer knowledgeId, String knowledgeName, Integer questionId, BigInteger totalCount) {
         this.knowledgeId = knowledgeId;
         this.knowledgeName = knowledgeName;
         this.questionId = questionId;

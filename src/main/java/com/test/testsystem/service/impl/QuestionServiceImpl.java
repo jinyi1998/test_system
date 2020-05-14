@@ -4,7 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.test.testsystem.dao.QuestionRepos;
 import com.test.testsystem.dao.UserQuestionRepos;
-import com.test.testsystem.dto.KnowledegeQuestionCount;
+import com.test.testsystem.dto.CountedUserQUestion;
+import com.test.testsystem.dto.KnowledgeQuestionCount;
 import com.test.testsystem.dto.UserQuestionDto;
 import com.test.testsystem.dto.UserQuestionRightCount;
 import com.test.testsystem.model.Question;
@@ -14,8 +15,10 @@ import com.test.testsystem.service.QuestionService;
 import com.test.testsystem.utils.EntityUtils;
 import com.test.testsystem.utils.JsonResult;
 import com.test.testsystem.utils.UserQuestionUtils;
-import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -58,9 +61,9 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public JsonResult getPageQuestionList(Integer page,Integer pageSize) {
         PageHelper.startPage(page,pageSize);
-        List<Question>questions=questionRepos.findAll();
-        PageInfo pageInfo=new PageInfo(questions);
-        return JsonResult.success(pageInfo);
+        PageRequest pageable = PageRequest.of(page, pageSize);
+        Page<Question> questions=questionRepos.findAll(pageable);
+        return JsonResult.success(questions);
 
     }
 
@@ -79,6 +82,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
         //2.获取包含当前用户做过的题目的用户列表
         List<UserQuestions> userQuestions = userQuestionRepos.findAllByQuestionIdIn(questionIds);
+        List<UserQuestions> userQuestionsWithAll = userQuestionRepos.findAllByQuestionIdIn(questionIds);
         //排除本用户的答题记录
         List<UserQuestions> noUserUserQuestions = new ArrayList<>();
         for (UserQuestions userQuestions1:userQuestions){
@@ -102,9 +106,9 @@ public class QuestionServiceImpl implements QuestionService {
                }
            }
            //得到最接近的userId 也就是最接近的一组数据
-        Integer userNearId = UserQuestionUtils.getUserNearedQuestions(map,questionIds);
+        Integer userNearId = UserQuestionUtils.getUserNearedQuestions(map,questionIds,userId,userQuestionsWithAll);
            List<UserQuestions>  userQuestionsSelected = map.get(userNearId);
-           List<Integer> selecedQuestionIds = new ArrayList<>();
+           List<Integer> selectedQuestionIds = new ArrayList<>();
            if (null == userQuestionsSelected){
                List<Question> questions = questionRepos.findAll();
                Integer questionRandomId = new Random().nextInt(questions.size()-1)+1;
@@ -117,12 +121,12 @@ public class QuestionServiceImpl implements QuestionService {
                return JsonResult.success(question);
            }
            for (UserQuestions userQuestions1:userQuestionsSelected){
-               selecedQuestionIds.add(userQuestions1.getQuestionId());
+               selectedQuestionIds.add(userQuestions1.getQuestionId());
            }
            //拿掉本用户已经做过的题目
-           selecedQuestionIds.removeAll(questionIds);
-           if (selecedQuestionIds.size() > 0){
-               questionSelected = selecedQuestionIds.get(0);
+           selectedQuestionIds.removeAll(questionIds);
+           if (selectedQuestionIds.size() > 0){
+               questionSelected = selectedQuestionIds.get(0);
            }else {
                 List<Question> questions = questionRepos.findAll();
                Integer questionRandomId = new Random().nextInt(questions.size()-1)+1;
@@ -138,19 +142,28 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<UserQuestionDto> getUserQuestionKnowledgeList(User user) {
-
         return EntityUtils.castEntity(questionRepos.getUserQuestionKnowledgeList(user.getId()),UserQuestionDto.class,new UserQuestionDto());
 
     }
 
     @Override
-    public List<KnowledegeQuestionCount> getKnowledegeQuestionCount(User user) {
-        List<Object[]> objects = questionRepos.getKnowledgeQuestionCount();
-        return EntityUtils.castEntity(objects,KnowledegeQuestionCount.class,new KnowledegeQuestionCount());
+    public List<CountedUserQUestion> getCountedUserQuestionKnowledgeList(User user) {
+        return EntityUtils.castEntity(questionRepos.getCountedUserQuestionKnowledgeList(user.getId()),CountedUserQUestion.class,new CountedUserQUestion());
+
     }
+
+
+    @Override
+    public List<KnowledgeQuestionCount> getKnowledgeQuestionCount(User user) {
+
+        List<Object[]> objects = questionRepos.getKnowledgeQuestionCount();
+        return EntityUtils.castEntity(objects,KnowledgeQuestionCount.class,new KnowledgeQuestionCount());
+    }
+
 
     @Override
     public List<UserQuestionRightCount> getUserQuestionRightCount(User user) {
+
         List<Object[]> objects = questionRepos.getUserRightCount(user.getId());
         List<UserQuestionRightCount> userQuestionRightCounts = new ArrayList<>();
         for (Object[] objects1:objects){

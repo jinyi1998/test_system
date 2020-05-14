@@ -1,5 +1,8 @@
 package com.test.testsystem.utils;
 
+import com.test.testsystem.dao.KnowledgeRepos;
+import com.test.testsystem.dao.QuestionRepos;
+import com.test.testsystem.model.Question;
 import com.test.testsystem.model.UserQuestions;
 
 import java.util.HashMap;
@@ -7,20 +10,49 @@ import java.util.List;
 import java.util.Map;
 
 public class UserQuestionUtils {
-
-    public static Integer getUserNearedQuestions(HashMap<Integer, List<UserQuestions>> map,List<Integer> questionIds){
+    static QuestionRepos questionRepos;
+    public static Integer getUserNearedQuestions(HashMap<Integer, List<UserQuestions>> map, List<Integer> questionIds, Integer userID, List<UserQuestions> userQuestionsWithAll){
         HashMap<Integer,Double> scoreMap = new HashMap<>();
         //1.先按照组分别评分
         for(Map.Entry<Integer,  List<UserQuestions>> entry : map.entrySet()){
             Integer mapKey = entry.getKey();
             List<UserQuestions> mapValue = entry.getValue();
-            Double score = 100.0;
+            Double score = 10000.0;
             for (Integer i:questionIds){
                 for (UserQuestions userQuestions:mapValue){
                     if (userQuestions.getQuestionId() == i){
-                        score = score + 1;
+//                        if (userID==userQuestions.getUserQuestionStatus())
+
+                        //找到答题情况进行比对
+                        for (UserQuestions u:userQuestionsWithAll){
+                            if (u.getUserId()==userID&&u.getQuestionId()==i){
+                                if (userQuestions.getUserQuestionStatus()==u.getUserQuestionStatus()){
+                                    score = score + 0.25;
+                                }else {
+
+                                    score=score-0.25;
+                                }
+                            }
+                        }
                     }else {
-                        score = score - 0.1;
+                       List<Object[]> a= questionRepos.getKnowledgeId(i);
+                       List<Object[]> b= questionRepos.getKnowledgeId(userQuestions.getQuestionId());
+                       if (a.equals(b)){
+                           //知识点一样
+                           for (UserQuestions u:userQuestionsWithAll){
+                               if (u.getUserId()==userID&&u.getQuestionId()==i){
+                                   if (userQuestions.getUserQuestionStatus()==u.getUserQuestionStatus()){
+                                       score = score + 0.125;
+                                   }else {
+
+                                       score=score-0.125;
+                                   }
+                               }
+                           }
+                       }else {
+                           score=score-0.25;
+                       }
+
                     }
                 }
             }

@@ -9,6 +9,8 @@ import com.test.testsystem.model.UserQuestions;
 import com.test.testsystem.service.UserService;
 import com.test.testsystem.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -73,9 +75,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public JsonResult getPageUserList(Integer page, Integer pageSize) {
         PageHelper.startPage(page,pageSize);
-        List<User>users = userRepos.findAll();
-        PageInfo pageInfo = new PageInfo(users);
-        return JsonResult.success(pageInfo);
+        PageRequest pageable = PageRequest.of(page, pageSize);
+        Page<User> users = userRepos.findAll(pageable);
+        return JsonResult.success(users);
     }
 
     @Override

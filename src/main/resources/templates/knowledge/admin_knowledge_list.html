@@ -77,7 +77,7 @@
 
         </div>
 
-        <footer class="footer text-center"> 2019 &copy;Online Test System</footer>
+        <footer class="footer text-center"> 2020 &copy;Online Test System</footer>
     </div>
 
 </div>
@@ -87,7 +87,7 @@
 <script>
 
     $(function(){
-        page(1,10);
+        page(0,10);
     });
     $("#addBtn").click(function(){
         window.location.href= ctxPath + 'knowledgeDetail?id='+0;
@@ -109,7 +109,7 @@
             type:'POST',
             success:function (data) {
                 if (data.code == '1'){
-                    page(1,10);
+                    page(0,10);
                 }else {
                     alert("删除失败");
                 }
@@ -132,7 +132,7 @@
                     //获取知识结构列表成功
                     var tableContentStr = "";
                     $("#pageContent").empty();
-                    $(data.data.list).each(function (i,item) {
+                    $(data.data.content).each(function (i,item) {
                         tableContentStr = tableContentStr + "<tr>";
                         tableContentStr = tableContentStr + "<td>"+item.id+"</td>";
                         tableContentStr = tableContentStr + "<td>"+item.knowledgeName+"</td>";
