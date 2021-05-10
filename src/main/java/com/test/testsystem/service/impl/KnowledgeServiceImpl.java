@@ -3,6 +3,7 @@ package com.test.testsystem.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.test.testsystem.dao.KnowledgeRepos;
+import com.test.testsystem.dao.QuestionRepos;
 import com.test.testsystem.dao.UserQuestionRepos;
 import com.test.testsystem.dto.CountedUserQUestion;
 import com.test.testsystem.dto.KnowledgeQuestionCount;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.xml.ws.Response;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +32,8 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     private KnowledgeRepos knowledgeRepos;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private QuestionRepos questionRepos;
 
     @Override
     public Knowledge getKnowledgeById(Integer id) {
@@ -88,7 +92,10 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             }
             chartEntities.add(chartEntity);
         }
+        //拿到用户作答反应表
+        System.out.println(questionRepos.ResponseList(user.getId()));
         return JsonResult.success(chartEntities);
+
 //        List<KnowledgeQuestionCount> knowledgeQuestionCounts = questionService.getKnowledgeQuestionCount(user);
 //        List<ChartEntity> chartEntities = new ArrayList<>();
 //        for (KnowledgeQuestionCount k :knowledgeQuestionCounts){

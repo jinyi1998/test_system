@@ -47,6 +47,12 @@ public interface QuestionRepos extends JpaRepository<Question,Integer> {
     @Query(value="select knowledge_id from question where id=?1",nativeQuery = true)
     List<Object []> getKnowledgeId(Integer questionId);
 
+    //拿到当前用户的作答反应表
+    @Query(value="select knowledge_id, user_question_status, user_id FROM user_questions, question where user_id=?1 AND question_id = question.id"
+            ,nativeQuery = true)
+    List<Object []> ResponseList(Integer userId);
+
+
 
 
 }

@@ -77,7 +77,7 @@
 
         </div>
 
-        <footer class="footer text-center"> 2020 &copy;Online Test System</footer>
+        <footer class="footer text-center"> 2021 &copy;Online Test System</footer>
     </div>
 
 </div>
@@ -100,7 +100,7 @@
         var id = $(this).attr("data-id");
         window.location.href= ctxPath + 'knowledgeDetail?id='+id;
     });
-    function deleteSystem(id){
+    function deleteKnowledge(id){
         $.ajax({
             url:ctxPath+"deleteKnowledge",
             data:{

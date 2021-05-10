@@ -60,6 +60,11 @@ public class UserController {
         return "user/user_question";
     }
 
+    @RequestMapping("/questionnaire")
+    public String questionnaire(){
+        return "user/user_questionnaire";
+    }
+
     @RequestMapping("/userKnowledge")
     public String userKnowledge(){
         return "user/user_knowledge_list";

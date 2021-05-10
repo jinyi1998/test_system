@@ -111,7 +111,7 @@ public class QuestionServiceImpl implements QuestionService {
            List<Integer> selectedQuestionIds = new ArrayList<>();
            if (null == userQuestionsSelected){
                List<Question> questions = questionRepos.findAll();
-               Integer questionRandomId = new Random().nextInt(questions.size()-1)+1;
+               Integer questionRandomId = new Random().nextInt(questions.size()-1)+46;
                while (questionIds.contains(questionRandomId)){
                    questionRandomId = new Random().nextInt(questions.size());
                }
