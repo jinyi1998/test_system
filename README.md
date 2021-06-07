@@ -11,4 +11,4 @@ Have fun with the system!
 
 If you don't want to install all the softwares and skip all the steps above, you can also see how the system operates here: 
 
-https://drive.google.com/file/d/12PzPWsdTIejbvjQ9TVFizV5E5pFxZX31/view?usp=sharing
+https://youtu.be/ctWn8hlfGMA
