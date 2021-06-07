@@ -3,8 +3,9 @@
 You are recommended to set up your local environment fisrt.
 1. Download the one of IDEs(such as IDEA...)
 2. Connect your database(Mysql, Oracle, i.e.)
-3. Have fun with the system!
+3. Maven dependencies are required.
 
+Have fun with the system!
 (Notes: You may come across many techinical problems, welcome to contact the email:kimmm@connect.hku.hk)
 
 
