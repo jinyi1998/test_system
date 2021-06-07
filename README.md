@@ -1,4 +1,4 @@
-# test_system
+# All you need to know
 
 You are recommended to set up your local environment fisrt.
 1. Download the one of IDEs(such as IDEA...)
