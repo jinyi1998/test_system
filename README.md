@@ -10,5 +10,7 @@ Have fun with the system!
 
 
 If you don't want to install all the softwares and skip all the steps above, you can also see how the system operates here: 
-
+Chinese Version：
 https://youtu.be/ctWn8hlfGMA
+English Version：
+https://www.youtube.com/watch?v=RZ2s3l1PrbE
