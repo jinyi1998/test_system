@@ -1,7 +1,7 @@
 # All you need to know
 
 You are recommended to set up your local environment fisrt.
-1. Download the one of IDEs(such as IDEA...)
+1. Download one of the IDEs(such as IDEA...)
 2. Connect your database(Mysql, Oracle, i.e.)
 3. Maven dependencies are required.
 
